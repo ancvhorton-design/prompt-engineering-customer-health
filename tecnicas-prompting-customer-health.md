@@ -25,4 +25,4 @@ En general, las respuestas se vuelven más útiles y estructuradas al aplicar t�
 Al variar las técnicas de prompting, las respuestas de la IA se vuelven más claras, profundas y accionables.
 La técnica que me dio la respuesta más útil fue Chain of Thought, porque permite entender el razonamiento detrás de cada decisión y facilita la interpretación del resultado.
 
-Esto es especialmente valioso en contextos profesionales donde no solo importa la respuesta, sino cómo se llegó a ella.
+
