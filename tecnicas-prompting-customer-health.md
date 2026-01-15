@@ -1,8 +1,6 @@
 Tema elegido.
 Análisis de Customer Health para detectar riesgo del cliente y proponer acciones preventivas en empresas de logística.
 Prompt:
-Actúa como un analista de Customer Experience. Analiza las métricas de un cliente (puntualidad, NPS, quejas, incidentes y rechazos) e indica el nivel de riesgo del cliente y una recomendación general.
-Prompt:
 Actúa como un analista de Customer Experience.
 Analiza paso a paso las métricas del cliente, evaluando cada indicador individualmente antes de determinar el nivel de riesgo final.
 Explica tu razonamiento de forma clara y luego presenta una recomendación preventiva.
@@ -26,4 +24,5 @@ El Few-shot produce respuestas más alineadas con los ejemplos, haciendo el resu
 En general, las respuestas se vuelven más útiles y estructuradas al aplicar técnicas avanzadas.
 Al variar las técnicas de prompting, las respuestas de la IA se vuelven más claras, profundas y accionables.
 La técnica que me dio la respuesta más útil fue Chain of Thought, porque permite entender el razonamiento detrás de cada decisión y facilita la interpretación del resultado.
+
 Esto es especialmente valioso en contextos profesionales donde no solo importa la respuesta, sino cómo se llegó a ella.
