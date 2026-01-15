@@ -1,10 +1,13 @@
 Nombre del equipo: Angela del Carmen Valdivia Horton y Areli Peréz González .
+
 Nombre del asistente: Asistente de Customer Health Preventivo
 
 Problema que aborda:
+
 En muchas empresas de logística, los problemas con clientes se detectan tarde, cuando ya existe una queja formal o riesgo de pérdida. Esto dificulta tomar acciones preventivas y genera decisiones reactivas.
 
 Usuario principal:
+
 Ejecutivos de Customer Experience, atención al cliente y equipos operativos que gestionan cuentas de clientes en empresas de logística y transporte.
 
 Rol de la IA:
@@ -18,3 +21,4 @@ El asistente analiza estos datos, determina el nivel de riesgo del cliente y gen
 Un ejecutivo de Customer Experience ingresa las métricas de un cliente con baja puntualidad y NPS negativo, y el asistente devuelve un nivel de riesgo medio junto con recomendaciones de contacto preventivo y seguimiento semanal.
 
 Al transformar una idea general en una propuesta concreta, aprendí la importancia de definir claramente el problema, el usuario y el rol de la IA para que la solución sea útil y enfocada desde el inicio.
+
