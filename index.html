@@ -4,84 +4,437 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Customer Health AI Assistant</title>
+<title>MISUMI | Operations Intelligence</title>
+
 <style>
+:root {
+  --blue: #0756a5;
+  --dark: #14283f;
+  --yellow: #f5c400;
+  --bg: #f3f6fa;
+  --green: #15945c;
+  --red: #d83d48;
+}
+
+* { box-sizing: border-box; }
+
 body {
-  font-family: Arial, sans-serif;
-  background: #f1f5f9;
   margin: 0;
-  padding: 40px 15px;
-  color: #172554;
+  font-family: Arial, sans-serif;
+  background: var(--bg);
+  color: var(--dark);
 }
+
+header {
+  background: var(--dark);
+  color: white;
+  padding: 22px 5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.logo {
+  font-size: 27px;
+  font-weight: 900;
+  letter-spacing: 2px;
+}
+
+.logo span { color: var(--yellow); }
+
+header small { color: #cbd5e1; }
+
 .container {
-  max-width: 650px;
+  max-width: 1250px;
   margin: auto;
-  background: white;
-  padding: 30px;
-  border-radius: 18px;
-  box-shadow: 0 8px 30px #0001;
+  padding: 30px 20px;
 }
-h1 { color: #174ea6; }
-.subtitle { color: #64748b; }
-.chat {
-  background: #f8fafc;
+
+.welcome {
+  background: white;
+  border-radius: 12px;
+  padding: 25px;
+  margin-bottom: 25px;
+  border-left: 5px solid var(--yellow);
+}
+
+h1 { margin: 0 0 10px; font-size: 25px; }
+h2 { font-size: 19px; margin-top: 0; }
+
+.subtitle { color: #718096; line-height: 1.6; }
+
+.section-title {
+  margin: 30px 0 15px;
+  font-size: 20px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(180px,1fr));
+  gap: 16px;
+}
+
+.card {
+  background: white;
   padding: 20px;
   border-radius: 12px;
-  min-height: 150px;
-  margin: 20px 0;
+  box-shadow: 0 3px 12px #00000008;
 }
-input {
-  width: 72%;
-  padding: 13px;
-  border: 1px solid #cbd5e1;
-  border-radius: 8px;
+
+.metric-label {
+  color: #718096;
+  font-size: 13px;
 }
+
+.metric-value {
+  font-size: 29px;
+  font-weight: bold;
+  margin: 12px 0;
+}
+
+.metric-status {
+  font-size: 12px;
+  color: var(--green);
+}
+
+.panel {
+  background: white;
+  padding: 24px;
+  border-radius: 12px;
+  margin-top: 20px;
+  box-shadow: 0 3px 12px #00000008;
+}
+
+label {
+  display: block;
+  margin: 15px 0 7px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+input, select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #dce3eb;
+  border-radius: 7px;
+  font-size: 15px;
+  background: white;
+}
+
 button {
-  padding: 13px;
-  background: #174ea6;
+  background: var(--blue);
   color: white;
-  border: 0;
-  border-radius: 8px;
+  padding: 13px 20px;
+  border: none;
+  border-radius: 7px;
+  font-size: 14px;
+  font-weight: bold;
   cursor: pointer;
+  margin-top: 18px;
 }
-.msg { margin: 12px 0; line-height: 1.5; }
+
+button:hover { background: #063d78; }
+
+.risk {
+  display: inline-block;
+  padding: 9px 16px;
+  border-radius: 30px;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+.low { background: #d9f6e8; color: #087b47; }
+.medium { background: #fff0c2; color: #946500; }
+.high { background: #ffe0e0; color: #bd2633; }
+
+.result {
+  display: none;
+  margin-top: 20px;
+  padding: 20px;
+  border-radius: 9px;
+  background: #f4f7fb;
+  line-height: 1.7;
+}
+
+.bar-bg {
+  height: 9px;
+  background: #e6ebf1;
+  border-radius: 10px;
+  margin: 10px 0 17px;
+}
+
+.bar {
+  height: 9px;
+  background: var(--blue);
+  border-radius: 10px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+td, th {
+  padding: 13px;
+  border-bottom: 1px solid #edf0f4;
+  text-align: left;
+}
+
+th { color: #718096; }
+
+footer {
+  text-align: center;
+  padding: 30px;
+  color: #8793a2;
+  font-size: 12px;
+}
+
+@media(max-width:600px) {
+  header { padding: 20px; }
+  .metric-value { font-size: 25px; }
+  .panel { padding: 17px; }
+}
 </style>
 </head>
+
 <body>
-<div class="container">
-  <h1>Customer Health AI Assistant</h1>
-  <p class="subtitle">Asistente virtual para análisis y seguimiento de la salud del cliente.</p>
-  <hr>
-  <h3>Bienvenido 👋</h3>
-  <p>Soy tu asistente de Customer Health. Puedo ayudarte a identificar riesgos, analizar la satisfacción y proponer estrategias de retención.</p>
-  <div class="chat" id="chat">
-    <div class="msg"><b>Asistente:</b> ¡Hola! ¿Qué aspecto de Customer Health deseas analizar?</div>
-  </div>
-  <input id="question" placeholder="Escribe tu consulta...">
-  <button onclick="send()">Enviar</button>
+
+<header>
+  <div class="logo">MISUMI<span>●</span></div>
+  <small>OPERATIONS INTELLIGENCE | DEMO</small>
+</header>
+
+<main class="container">
+
+<section class="welcome">
+  <h1>🤖 Customer & Operations Intelligence</h1>
+  <p class="subtitle">
+    Asistente inteligente para monitorear el desempeño operativo,
+    detectar riesgos en pedidos y anticipar problemas que puedan
+    afectar la satisfacción del cliente.
+  </p>
+  <strong>Panel de análisis empresarial | MISUMI</strong>
+</section>
+
+<h2 class="section-title">📊 Indicadores principales</h2>
+
+<section class="grid">
+
+<div class="card">
+  <div class="metric-label">Entregas a tiempo</div>
+  <div class="metric-value" id="delivery">95%</div>
+  <div class="metric-status">● Indicador operativo</div>
 </div>
+
+<div class="card">
+  <div class="metric-label">Disponibilidad</div>
+  <div class="metric-value" id="availability">98%</div>
+  <div class="metric-status">● Disponibilidad de producto</div>
+</div>
+
+<div class="card">
+  <div class="metric-label">Pedidos retrasados</div>
+  <div class="metric-value" id="delays">3</div>
+  <div class="metric-status">● Seguimiento de pedidos</div>
+</div>
+
+<div class="card">
+  <div class="metric-label">Satisfacción del cliente</div>
+  <div class="metric-value" id="satisfaction">92%</div>
+  <div class="metric-status">● Experiencia del cliente</div>
+</div>
+
+</section>
+
+<section class="panel">
+<h2>📈 Comportamiento operativo</h2>
+
+<p>Entregas a tiempo</p>
+<div class="bar-bg"><div class="bar" style="width:95%"></div></div>
+
+<p>Disponibilidad de productos</p>
+<div class="bar-bg"><div class="bar" style="width:98%"></div></div>
+
+<p>Satisfacción del cliente</p>
+<div class="bar-bg"><div class="bar" style="width:92%"></div></div>
+
+</section>
+
+<section class="panel">
+<h2>🔎 Simulador de evaluación de riesgos</h2>
+
+<p class="subtitle">
+Modifica los indicadores para analizar un escenario operativo.
+El sistema generará un diagnóstico y acciones preventivas.
+</p>
+
+<label>Entregas a tiempo (%)</label>
+<input type="number" id="inputDelivery" value="95" min="0" max="100">
+
+<label>Disponibilidad de productos (%)</label>
+<input type="number" id="inputAvailability" value="98" min="0" max="100">
+
+<label>Pedidos retrasados</label>
+<input type="number" id="inputDelays" value="3" min="0">
+
+<label>Incidencias de calidad</label>
+<input type="number" id="inputIncidents" value="0" min="0">
+
+<label>Satisfacción del cliente (%)</label>
+<input type="number" id="inputSatisfaction" value="92" min="0" max="100">
+
+<button onclick="analyze()">Analizar operación</button>
+
+<div class="result" id="result"></div>
+</section>
+
+<section class="panel">
+<h2>📋 Resumen de operación</h2>
+
+<table>
+<thead>
+<tr>
+<th>Indicador</th>
+<th>Resultado</th>
+<th>Estado</th>
+</tr>
+</thead>
+<tbody id="summary">
+<tr><td>Entregas a tiempo</td><td>95%</td><td>Estable</td></tr>
+<tr><td>Disponibilidad</td><td>98%</td><td>Estable</td></tr>
+<tr><td>Pedidos retrasados</td><td>3</td><td>Seguimiento</td></tr>
+<tr><td>Satisfacción</td><td>92%</td><td>Estable</td></tr>
+</tbody>
+</table>
+</section>
+
+<section class="panel">
+<h2>🎯 Plan de acción sugerido</h2>
+<ul>
+<li>Monitorear pedidos con riesgo de retraso.</li>
+<li>Identificar componentes con baja disponibilidad.</li>
+<li>Fortalecer la comunicación con clientes.</li>
+<li>Dar seguimiento a incidencias de calidad.</li>
+<li>Implementar indicadores de mejora continua.</li>
+</ul>
+</section>
+
+<footer>
+MISUMI Operations Intelligence | Proyecto demostrativo
+<br><br>
+Datos simulados. No representa información oficial de MISUMI.
+</footer>
+
+</main>
+
 <script>
-function send() {
-  const input = document.getElementById('question');
-  const chat = document.getElementById('chat');
-  const q = input.value.trim();
-  if (!q) return;
-  chat.innerHTML += '<div class="msg"><b>Tú:</b> ' + escapeHTML(q) + '</div>';
-  let answer = 'Para evaluar la salud del cliente, analiza indicadores como satisfacción, frecuencia de uso, nivel de compromiso, incidencias y probabilidad de abandono. Con estos datos puedes diseñar estrategias de seguimiento y retención.';
-  if (/riesgo|abandono|churn/i.test(q))
-    answer = 'Identifica señales de riesgo como disminución del uso, quejas recurrentes, baja satisfacción y falta de interacción. Prioriza a los clientes en riesgo y diseña un plan de seguimiento personalizado.';
-  else if (/satisfacci|nps/i.test(q))
-    answer = 'Evalúa la satisfacción mediante encuestas, NPS, comentarios y retroalimentación. Utiliza los resultados para detectar oportunidades de mejora en la experiencia del cliente.';
-  else if (/retenci/i.test(q))
-    answer = 'Implementa estrategias de retención mediante seguimiento proactivo, atención personalizada, resolución de incidencias y comunicación continua.';
-  chat.innerHTML += '<div class="msg"><b>Asistente:</b> ' + answer + '</div>';
-  input.value = '';
-}
-function escapeHTML(s) {
-  return s.replace(/[&<>"']/g, c => ({
-    '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
-  }[c]));
+function analyze() {
+
+  const delivery = Number(document.getElementById("inputDelivery").value);
+  const availability = Number(document.getElementById("inputAvailability").value);
+  const delays = Number(document.getElementById("inputDelays").value);
+  const incidents = Number(document.getElementById("inputIncidents").value);
+  const satisfaction = Number(document.getElementById("inputSatisfaction").value);
+
+  if (
+    !Number.isFinite(delivery) || !Number.isFinite(availability) ||
+    !Number.isFinite(delays) || !Number.isFinite(incidents) ||
+    !Number.isFinite(satisfaction) ||
+    delivery < 0 || delivery > 100 ||
+    availability < 0 || availability > 100 ||
+    satisfaction < 0 || satisfaction > 100 ||
+    delays < 0 || incidents < 0 ||
+    !Number.isInteger(delays) || !Number.isInteger(incidents)
+  ) {
+    alert("Verifica los datos. Los porcentajes deben estar entre 0 y 100 y los conteos deben ser enteros no negativos.");
+    return;
+  }
+
+  let score = 0;
+
+  if(delivery < 90) score += 3;
+  else if(delivery < 95) score += 1;
+
+  if(availability < 85) score += 3;
+  else if(availability < 95) score += 1;
+
+  if(delays >= 10) score += 3;
+  else if(delays >= 5) score += 1;
+
+  if(incidents >= 5) score += 3;
+  else if(incidents >= 2) score += 1;
+
+  if(satisfaction < 70) score += 3;
+  else if(satisfaction < 85) score += 1;
+
+  let level, color, diagnosis, actions;
+
+  if(score >= 7) {
+    level = "ALTO";
+    color = "high";
+    diagnosis = "Se detectan señales importantes de riesgo operativo que podrían afectar la experiencia del cliente.";
+    actions = [
+      "Priorizar pedidos retrasados.",
+      "Revisar disponibilidad de componentes críticos.",
+      "Investigar incidencias de calidad.",
+      "Contactar a clientes afectados."
+    ];
+  }
+  else if(score >= 3) {
+    level = "MEDIO";
+    color = "medium";
+    diagnosis = "Existen indicadores que requieren atención preventiva y seguimiento.";
+    actions = [
+      "Monitorear entregas y pedidos pendientes.",
+      "Revisar productos con disponibilidad limitada.",
+      "Dar seguimiento a clientes con incidencias."
+    ];
+  }
+  else {
+    level = "BAJO";
+    color = "low";
+    diagnosis = "La operación presenta indicadores estables y no muestra señales importantes de riesgo.";
+    actions = [
+      "Mantener seguimiento regular.",
+      "Continuar monitoreando indicadores.",
+      "Reforzar acciones de mejora continua."
+    ];
+  }
+
+  document.getElementById("delivery").textContent = delivery + "%";
+  document.getElementById("availability").textContent = availability + "%";
+  document.getElementById("delays").textContent = delays;
+  document.getElementById("satisfaction").textContent = satisfaction + "%";
+
+  const result = document.getElementById("result");
+
+  result.style.display = "block";
+
+  result.innerHTML = `
+    <h3>🚦 Nivel de riesgo</h3>
+    <span class="risk ${color}">${level}</span>
+    <h3>🧠 Diagnóstico del asistente</h3>
+    <p>${diagnosis}</p>
+    <h3>🎯 Acciones recomendadas</h3>
+    <ul>${actions.map(a => `<li>${a}</li>`).join("")}</ul>
+    <p><strong>Puntuación de riesgo:</strong> ${score}</p>
+  `;
+
+  const rows = [
+    ["Entregas a tiempo",delivery+"%",delivery < 90 ? "Crítico" : delivery < 95 ? "Atención" : "Estable"],
+    ["Disponibilidad",availability+"%",availability < 85 ? "Crítico" : availability < 95 ? "Atención" : "Estable"],
+    ["Pedidos retrasados",delays,delays >= 10 ? "Crítico" : delays >= 5 ? "Atención" : "Estable"],
+    ["Incidencias de calidad",incidents,incidents >= 5 ? "Crítico" : incidents >= 2 ? "Atención" : "Estable"],
+    ["Satisfacción",satisfaction+"%",satisfaction < 70 ? "Crítico" : satisfaction < 85 ? "Atención" : "Estable"]
+  ];
+
+  document.getElementById("summary").innerHTML =
+    rows.map(r => `<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td></tr>`).join("");
 }
 </script>
+
 </body>
 </html>
