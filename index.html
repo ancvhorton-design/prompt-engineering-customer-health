@@ -1,440 +1,189 @@
+from pathlib import Path
 
-<!DOCTYPE html>
+html = r'''<!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MISUMI | Operations Intelligence</title>
-
+<title>MISUMI | Data Intelligence Demo</title>
 <style>
-:root {
-  --blue: #0756a5;
-  --dark: #14283f;
-  --yellow: #f5c400;
-  --bg: #f3f6fa;
-  --green: #15945c;
-  --red: #d83d48;
-}
-
-* { box-sizing: border-box; }
-
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: var(--bg);
-  color: var(--dark);
-}
-
-header {
-  background: var(--dark);
-  color: white;
-  padding: 22px 5%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 12px;
-}
-
-.logo {
-  font-size: 27px;
-  font-weight: 900;
-  letter-spacing: 2px;
-}
-
-.logo span { color: var(--yellow); }
-
-header small { color: #cbd5e1; }
-
-.container {
-  max-width: 1250px;
-  margin: auto;
-  padding: 30px 20px;
-}
-
-.welcome {
-  background: white;
-  border-radius: 12px;
-  padding: 25px;
-  margin-bottom: 25px;
-  border-left: 5px solid var(--yellow);
-}
-
-h1 { margin: 0 0 10px; font-size: 25px; }
-h2 { font-size: 19px; margin-top: 0; }
-
-.subtitle { color: #718096; line-height: 1.6; }
-
-.section-title {
-  margin: 30px 0 15px;
-  font-size: 20px;
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit,minmax(180px,1fr));
-  gap: 16px;
-}
-
-.card {
-  background: white;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 3px 12px #00000008;
-}
-
-.metric-label {
-  color: #718096;
-  font-size: 13px;
-}
-
-.metric-value {
-  font-size: 29px;
-  font-weight: bold;
-  margin: 12px 0;
-}
-
-.metric-status {
-  font-size: 12px;
-  color: var(--green);
-}
-
-.panel {
-  background: white;
-  padding: 24px;
-  border-radius: 12px;
-  margin-top: 20px;
-  box-shadow: 0 3px 12px #00000008;
-}
-
-label {
-  display: block;
-  margin: 15px 0 7px;
-  font-size: 14px;
-  font-weight: bold;
-}
-
-input, select {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #dce3eb;
-  border-radius: 7px;
-  font-size: 15px;
-  background: white;
-}
-
-button {
-  background: var(--blue);
-  color: white;
-  padding: 13px 20px;
-  border: none;
-  border-radius: 7px;
-  font-size: 14px;
-  font-weight: bold;
-  cursor: pointer;
-  margin-top: 18px;
-}
-
-button:hover { background: #063d78; }
-
-.risk {
-  display: inline-block;
-  padding: 9px 16px;
-  border-radius: 30px;
-  font-weight: bold;
-  margin: 10px 0;
-}
-
-.low { background: #d9f6e8; color: #087b47; }
-.medium { background: #fff0c2; color: #946500; }
-.high { background: #ffe0e0; color: #bd2633; }
-
-.result {
-  display: none;
-  margin-top: 20px;
-  padding: 20px;
-  border-radius: 9px;
-  background: #f4f7fb;
-  line-height: 1.7;
-}
-
-.bar-bg {
-  height: 9px;
-  background: #e6ebf1;
-  border-radius: 10px;
-  margin: 10px 0 17px;
-}
-
-.bar {
-  height: 9px;
-  background: var(--blue);
-  border-radius: 10px;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 14px;
-}
-
-td, th {
-  padding: 13px;
-  border-bottom: 1px solid #edf0f4;
-  text-align: left;
-}
-
-th { color: #718096; }
-
-footer {
-  text-align: center;
-  padding: 30px;
-  color: #8793a2;
-  font-size: 12px;
-}
-
-@media(max-width:600px) {
-  header { padding: 20px; }
-  .metric-value { font-size: 25px; }
-  .panel { padding: 17px; }
-}
+:root{--navy:#102b46;--blue:#0756a5;--cyan:#19a7c9;--gold:#f2c400;--bg:#f3f6fa;--ink:#1c3045;--muted:#718096;--line:#e5ebf2;--green:#16865b;--red:#c83d4b;--amber:#b7791f;--white:#fff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:Inter,Segoe UI,Arial,sans-serif;color:var(--ink)}
+header{background:var(--navy);color:white;padding:17px max(22px,calc((100% - 1380px)/2));display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.brand{font-size:25px;font-weight:900;letter-spacing:2px}.brand span{color:var(--gold)}header small{color:#c8d5e2;letter-spacing:.7px}
+main{max-width:1380px;margin:auto;padding:26px 22px 50px}
+.hero{background:white;border:1px solid var(--line);border-left:5px solid var(--gold);border-radius:13px;padding:22px 24px;margin-bottom:22px;display:flex;justify-content:space-between;gap:20px;align-items:center;flex-wrap:wrap}
+h1{font-size:24px;margin:0 0 8px}.muted{color:var(--muted);line-height:1.55}.demo{background:#fff6d8;color:#775800;border-radius:30px;padding:8px 13px;font-size:12px;font-weight:800;white-space:nowrap}
+.toolbar{display:flex;gap:10px;align-items:end;flex-wrap:wrap;background:white;border:1px solid var(--line);padding:15px;border-radius:12px;margin-bottom:22px}
+.field{min-width:160px;flex:1}label{display:block;font-size:12px;font-weight:800;color:#536477;margin:0 0 7px}
+input,select{width:100%;border:1px solid #d7e0e9;background:#fff;border-radius:8px;padding:10px 11px;color:var(--ink);font-size:14px}
+button,.file-label{border:0;border-radius:8px;padding:11px 15px;background:var(--blue);color:white;font-weight:750;font-size:13px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:7px}
+button.secondary,.file-label.secondary{background:#eaf1f8;color:var(--blue)}button:hover,.file-label:hover{filter:brightness(.95)}
+input[type=file]{display:none}
+.section-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:27px 0 13px;flex-wrap:wrap}
+h2{font-size:17px;margin:0}.section-note{font-size:12px;color:var(--muted)}
+.kpis{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:13px}
+.card,.panel{background:white;border:1px solid var(--line);border-radius:12px;box-shadow:0 3px 12px #102b4608}
+.card{padding:17px}.k-label{font-size:12px;color:var(--muted);font-weight:700}.k-value{font-size:27px;font-weight:850;margin:10px 0 5px;letter-spacing:-.6px}.k-foot{font-size:11px;color:var(--muted)}
+.good{color:var(--green)}.warn{color:var(--amber)}.bad{color:var(--red)}
+.grid-2{display:grid;grid-template-columns:1.35fr 1fr;gap:15px}.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
+.panel{padding:19px;min-width:0}.panel h3{font-size:14px;margin:0 0 4px}.panel .sub{font-size:11px;color:var(--muted);margin-bottom:15px}
+canvas{width:100%;height:235px;display:block}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:11px;color:var(--muted);margin-top:8px}.dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px}
+.bar-list{display:grid;gap:14px}.bar-row{display:grid;grid-template-columns:105px 1fr 45px;gap:9px;align-items:center;font-size:12px}.track{height:9px;background:#edf1f5;border-radius:20px;overflow:hidden}.fill{height:100%;border-radius:20px;background:var(--blue)}
+.insights{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.insight{padding:14px;border-radius:10px;background:#f6f8fb;border:1px solid var(--line)}.insight strong{display:block;font-size:12px;margin-bottom:6px}.insight p{font-size:12px;line-height:1.5;color:#5e6e80;margin:0}
+.table-wrap{overflow:auto}table{width:100%;border-collapse:collapse;font-size:12px;white-space:nowrap}th,td{text-align:left;padding:11px 10px;border-bottom:1px solid #edf1f5}th{color:#738195;font-size:11px;text-transform:uppercase;letter-spacing:.4px}tbody tr:hover{background:#f8fafc}
+.pill{display:inline-block;padding:4px 8px;border-radius:20px;font-size:10px;font-weight:800}.pill.ok{background:#e0f5eb;color:#08794a}.pill.mid{background:#fff2d1;color:#946400}.pill.no{background:#ffe5e7;color:#b42332}
+.footer{padding:25px 5px 0;text-align:center;color:#8995a3;font-size:11px}
+.notice{font-size:12px;color:#6c7888;line-height:1.55;margin-top:12px}
+@media(max-width:1000px){.kpis{grid-template-columns:repeat(3,1fr)}.grid-2{grid-template-columns:1fr}.grid-3{grid-template-columns:1fr}.insights{grid-template-columns:1fr}}
+@media(max-width:600px){main{padding:16px 12px}.kpis{grid-template-columns:repeat(2,1fr)}.k-value{font-size:23px}.hero{padding:18px}.bar-row{grid-template-columns:85px 1fr 38px}}
 </style>
 </head>
-
 <body>
-
-<header>
-  <div class="logo">MISUMI<span>●</span></div>
-  <small>OPERATIONS INTELLIGENCE | DEMO</small>
-</header>
-
-<main class="container">
-
-<section class="welcome">
-  <h1>🤖 Customer & Operations Intelligence</h1>
-  <p class="subtitle">
-    Asistente inteligente para monitorear el desempeño operativo,
-    detectar riesgos en pedidos y anticipar problemas que puedan
-    afectar la satisfacción del cliente.
-  </p>
-  <strong>Panel de análisis empresarial | MISUMI</strong>
+<header><div class="brand">MISUMI<span>●</span></div><small>DATA INTELLIGENCE | PORTFOLIO DEMO</small></header>
+<main>
+<section class="hero">
+ <div><h1>Panel de inteligencia operativa</h1><div class="muted">Análisis de pedidos, inventario, entregas y calidad para convertir datos operativos en decisiones.</div></div>
+ <div class="demo">DATOS SIMULADOS · NO OFICIALES</div>
+</section>
+<section class="toolbar" aria-label="Filtros del dashboard">
+ <div class="field"><label for="monthFilter">PERIODO</label><select id="monthFilter"><option value="all">Todos los meses</option></select></div>
+ <div class="field"><label for="categoryFilter">CATEGORÍA</label><select id="categoryFilter"><option value="all">Todas las categorías</option></select></div>
+ <div class="field"><label for="search">BUSCAR PRODUCTO / PEDIDO</label><input id="search" placeholder="Ej. guía lineal o ORD-"></div>
+ <button class="secondary" id="resetBtn">Restablecer</button>
+ <label class="file-label" for="csvFile">↑ Cargar CSV</label><input id="csvFile" type="file" accept=".csv,text/csv">
+ <button id="exportBtn">↓ Exportar vista</button>
 </section>
 
-<h2 class="section-title">📊 Indicadores principales</h2>
-
-<section class="grid">
-
-<div class="card">
-  <div class="metric-label">Entregas a tiempo</div>
-  <div class="metric-value" id="delivery">95%</div>
-  <div class="metric-status">● Indicador operativo</div>
-</div>
-
-<div class="card">
-  <div class="metric-label">Disponibilidad</div>
-  <div class="metric-value" id="availability">98%</div>
-  <div class="metric-status">● Disponibilidad de producto</div>
-</div>
-
-<div class="card">
-  <div class="metric-label">Pedidos retrasados</div>
-  <div class="metric-value" id="delays">3</div>
-  <div class="metric-status">● Seguimiento de pedidos</div>
-</div>
-
-<div class="card">
-  <div class="metric-label">Satisfacción del cliente</div>
-  <div class="metric-value" id="satisfaction">92%</div>
-  <div class="metric-status">● Experiencia del cliente</div>
-</div>
-
+<div class="section-head"><h2>Indicadores clave de desempeño</h2><span class="section-note" id="recordCount">Registros analizados</span></div>
+<section class="kpis">
+ <article class="card"><div class="k-label">VENTAS SIMULADAS</div><div class="k-value" id="revenue">$0</div><div class="k-foot">Importe de las líneas filtradas</div></article>
+ <article class="card"><div class="k-label">PEDIDOS</div><div class="k-value" id="orders">0</div><div class="k-foot">Pedidos únicos</div></article>
+ <article class="card"><div class="k-label">ENTREGAS A TIEMPO</div><div class="k-value" id="onTime">0%</div><div class="k-foot" id="onTimeFoot">Cumplimiento de fecha prometida</div></article>
+ <article class="card"><div class="k-label">PRODUCTOS CON STOCK BAJO</div><div class="k-value" id="lowStock">0</div><div class="k-foot">Stock inferior al punto de alerta (20)</div></article>
+ <article class="card"><div class="k-label">INCIDENCIAS DE CALIDAD</div><div class="k-value" id="quality">0</div><div class="k-foot">Incidencias registradas</div></article>
 </section>
 
-<section class="panel">
-<h2>📈 Comportamiento operativo</h2>
-
-<p>Entregas a tiempo</p>
-<div class="bar-bg"><div class="bar" style="width:95%"></div></div>
-
-<p>Disponibilidad de productos</p>
-<div class="bar-bg"><div class="bar" style="width:98%"></div></div>
-
-<p>Satisfacción del cliente</p>
-<div class="bar-bg"><div class="bar" style="width:92%"></div></div>
-
+<div class="section-head"><h2>Comportamiento y composición</h2><span class="section-note">Los gráficos responden a los filtros seleccionados</span></div>
+<section class="grid-2">
+ <article class="panel"><h3>Ventas por mes</h3><div class="sub">Suma del importe de las líneas de pedido</div><canvas id="salesChart" aria-label="Gráfico de ventas por mes"></canvas></article>
+ <article class="panel"><h3>Pedidos por categoría</h3><div class="sub">Distribución de registros por familia de producto</div><div id="categoryBars" class="bar-list"></div></article>
 </section>
-
-<section class="panel">
-<h2>🔎 Simulador de evaluación de riesgos</h2>
-
-<p class="subtitle">
-Modifica los indicadores para analizar un escenario operativo.
-El sistema generará un diagnóstico y acciones preventivas.
-</p>
-
-<label>Entregas a tiempo (%)</label>
-<input type="number" id="inputDelivery" value="95" min="0" max="100">
-
-<label>Disponibilidad de productos (%)</label>
-<input type="number" id="inputAvailability" value="98" min="0" max="100">
-
-<label>Pedidos retrasados</label>
-<input type="number" id="inputDelays" value="3" min="0">
-
-<label>Incidencias de calidad</label>
-<input type="number" id="inputIncidents" value="0" min="0">
-
-<label>Satisfacción del cliente (%)</label>
-<input type="number" id="inputSatisfaction" value="92" min="0" max="100">
-
-<button onclick="analyze()">Analizar operación</button>
-
-<div class="result" id="result"></div>
+<div class="section-head"><h2>Diagnóstico y oportunidades</h2><span class="section-note">Reglas transparentes, no un modelo predictivo entrenado</span></div>
+<section class="grid-3">
+ <article class="panel"><h3>Semáforo operativo</h3><div class="sub">Evaluación basada en los indicadores visibles</div><div id="riskStatus" class="pill mid">Calculando</div><p id="riskText" class="notice"></p></article>
+ <article class="panel"><h3>Alertas de inventario</h3><div class="sub">Productos con stock menor a 20 unidades</div><div id="inventoryAlert" class="notice"></div></article>
+ <article class="panel"><h3>Calidad y servicio</h3><div class="sub">Incidencias y satisfacción promedio</div><div id="qualityInsight" class="notice"></div></article>
 </section>
-
-<section class="panel">
-<h2>📋 Resumen de operación</h2>
-
-<table>
-<thead>
-<tr>
-<th>Indicador</th>
-<th>Resultado</th>
-<th>Estado</th>
-</tr>
-</thead>
-<tbody id="summary">
-<tr><td>Entregas a tiempo</td><td>95%</td><td>Estable</td></tr>
-<tr><td>Disponibilidad</td><td>98%</td><td>Estable</td></tr>
-<tr><td>Pedidos retrasados</td><td>3</td><td>Seguimiento</td></tr>
-<tr><td>Satisfacción</td><td>92%</td><td>Estable</td></tr>
-</tbody>
-</table>
+<div class="section-head"><h2>Detalle de registros</h2><span class="section-note">Muestra de hasta 15 líneas según filtros</span></div>
+<section class="panel table-wrap">
+<table><thead><tr><th>Fecha</th><th>Pedido</th><th>Categoría</th><th>Producto</th><th>Unidades</th><th>Importe</th><th>Stock</th><th>Entrega</th><th>Calidad</th></tr></thead><tbody id="dataTable"></tbody></table>
+<div class="notice" id="tableNote"></div>
 </section>
-
-<section class="panel">
-<h2>🎯 Plan de acción sugerido</h2>
-<ul>
-<li>Monitorear pedidos con riesgo de retraso.</li>
-<li>Identificar componentes con baja disponibilidad.</li>
-<li>Fortalecer la comunicación con clientes.</li>
-<li>Dar seguimiento a incidencias de calidad.</li>
-<li>Implementar indicadores de mejora continua.</li>
-</ul>
+<section class="panel" style="margin-top:15px">
+ <h3>Metodología y supuestos</h3>
+ <p class="notice">• Entrega a tiempo: fecha real de entrega menor o igual a la fecha prometida.<br>• Stock bajo: existencia menor a 20 unidades. Es un umbral demostrativo, no una política de inventario de MISUMI.<br>• Ventas: unidades por precio unitario. Los importes son ficticios.<br>• El análisis es descriptivo y basado en reglas. Para un entorno real se requerirían definiciones de negocio, calidad de datos, fuentes autorizadas y validación con las áreas responsables.</p>
 </section>
-
-<footer>
-MISUMI Operations Intelligence | Proyecto demostrativo
-<br><br>
-Datos simulados. No representa información oficial de MISUMI.
-</footer>
-
+<div class="footer">MISUMI | Data Intelligence Demo · Proyecto independiente para entrevista · Datos 100% simulados</div>
 </main>
-
 <script>
-function analyze() {
-
-  const delivery = Number(document.getElementById("inputDelivery").value);
-  const availability = Number(document.getElementById("inputAvailability").value);
-  const delays = Number(document.getElementById("inputDelays").value);
-  const incidents = Number(document.getElementById("inputIncidents").value);
-  const satisfaction = Number(document.getElementById("inputSatisfaction").value);
-
-  if (
-    !Number.isFinite(delivery) || !Number.isFinite(availability) ||
-    !Number.isFinite(delays) || !Number.isFinite(incidents) ||
-    !Number.isFinite(satisfaction) ||
-    delivery < 0 || delivery > 100 ||
-    availability < 0 || availability > 100 ||
-    satisfaction < 0 || satisfaction > 100 ||
-    delays < 0 || incidents < 0 ||
-    !Number.isInteger(delays) || !Number.isInteger(incidents)
-  ) {
-    alert("Verifica los datos. Los porcentajes deben estar entre 0 y 100 y los conteos deben ser enteros no negativos.");
-    return;
-  }
-
-  let score = 0;
-
-  if(delivery < 90) score += 3;
-  else if(delivery < 95) score += 1;
-
-  if(availability < 85) score += 3;
-  else if(availability < 95) score += 1;
-
-  if(delays >= 10) score += 3;
-  else if(delays >= 5) score += 1;
-
-  if(incidents >= 5) score += 3;
-  else if(incidents >= 2) score += 1;
-
-  if(satisfaction < 70) score += 3;
-  else if(satisfaction < 85) score += 1;
-
-  let level, color, diagnosis, actions;
-
-  if(score >= 7) {
-    level = "ALTO";
-    color = "high";
-    diagnosis = "Se detectan señales importantes de riesgo operativo que podrían afectar la experiencia del cliente.";
-    actions = [
-      "Priorizar pedidos retrasados.",
-      "Revisar disponibilidad de componentes críticos.",
-      "Investigar incidencias de calidad.",
-      "Contactar a clientes afectados."
-    ];
-  }
-  else if(score >= 3) {
-    level = "MEDIO";
-    color = "medium";
-    diagnosis = "Existen indicadores que requieren atención preventiva y seguimiento.";
-    actions = [
-      "Monitorear entregas y pedidos pendientes.",
-      "Revisar productos con disponibilidad limitada.",
-      "Dar seguimiento a clientes con incidencias."
-    ];
-  }
-  else {
-    level = "BAJO";
-    color = "low";
-    diagnosis = "La operación presenta indicadores estables y no muestra señales importantes de riesgo.";
-    actions = [
-      "Mantener seguimiento regular.",
-      "Continuar monitoreando indicadores.",
-      "Reforzar acciones de mejora continua."
-    ];
-  }
-
-  document.getElementById("delivery").textContent = delivery + "%";
-  document.getElementById("availability").textContent = availability + "%";
-  document.getElementById("delays").textContent = delays;
-  document.getElementById("satisfaction").textContent = satisfaction + "%";
-
-  const result = document.getElementById("result");
-
-  result.style.display = "block";
-
-  result.innerHTML = `
-    <h3>🚦 Nivel de riesgo</h3>
-    <span class="risk ${color}">${level}</span>
-    <h3>🧠 Diagnóstico del asistente</h3>
-    <p>${diagnosis}</p>
-    <h3>🎯 Acciones recomendadas</h3>
-    <ul>${actions.map(a => `<li>${a}</li>`).join("")}</ul>
-    <p><strong>Puntuación de riesgo:</strong> ${score}</p>
-  `;
-
-  const rows = [
-    ["Entregas a tiempo",delivery+"%",delivery < 90 ? "Crítico" : delivery < 95 ? "Atención" : "Estable"],
-    ["Disponibilidad",availability+"%",availability < 85 ? "Crítico" : availability < 95 ? "Atención" : "Estable"],
-    ["Pedidos retrasados",delays,delays >= 10 ? "Crítico" : delays >= 5 ? "Atención" : "Estable"],
-    ["Incidencias de calidad",incidents,incidents >= 5 ? "Crítico" : incidents >= 2 ? "Atención" : "Estable"],
-    ["Satisfacción",satisfaction+"%",satisfaction < 70 ? "Crítico" : satisfaction < 85 ? "Atención" : "Estable"]
-  ];
-
-  document.getElementById("summary").innerHTML =
-    rows.map(r => `<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td></tr>`).join("");
+const categories=["Guías lineales","Tornillería","Rodamientos","Actuadores","Sensores"];
+const products={
+ "Guías lineales":["Guía lineal serie HSR","Riel de precisión 400 mm","Carro deslizante compacto"],
+ "Tornillería":["Tornillo hexagonal M8","Tuerca de precisión M6","Perno de fijación"],
+ "Rodamientos":["Rodamiento rígido 6204","Rodamiento lineal LM20","Soporte de eje"],
+ "Actuadores":["Actuador eléctrico 24V","Cilindro compacto","Módulo de posicionamiento"],
+ "Sensores":["Sensor de proximidad","Sensor fotoeléctrico","Interruptor de límite"]
+};
+const money=n=>new Intl.NumberFormat("es-MX",{style:"currency",currency:"MXN",maximumFractionDigits:0}).format(n);
+const pad=n=>String(n).padStart(2,"0");
+function dateStr(d){return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`}
+function makeSample(){
+ let rows=[]; const today=new Date(); const start=new Date(today.getFullYear(),today.getMonth()-5,1);
+ for(let i=0;i<120;i++){
+  const d=new Date(start.getFullYear(),start.getMonth(),1+Math.floor(Math.random()*((new Date(start.getFullYear(),start.getMonth()+1,0)).getDate())));
+  d.setMonth(start.getMonth()+Math.floor(Math.random()*6));
+  const cat=categories[Math.floor(Math.random()*categories.length)];
+  const product=products[cat][Math.floor(Math.random()*products[cat].length)];
+  const qty=1+Math.floor(Math.random()*18), price=120+Math.floor(Math.random()*4800);
+  const promised=new Date(d); promised.setDate(promised.getDate()+3+Math.floor(Math.random()*8));
+  const delivered=new Date(promised); delivered.setDate(delivered.getDate()+Math.floor(Math.random()*7)-2);
+  rows.push({date:dateStr(d),order:"ORD-"+String(10001+i),category:cat,product,qty,price,stock:Math.floor(Math.random()*100),promised:dateStr(promised),delivered:dateStr(delivered),incidents:Math.random()<.09?1:0,satisfaction:Math.floor(75+Math.random()*26)});
+ }
+ return rows;
 }
+let allData=makeSample(), filtered=[];
+const $=id=>document.getElementById(id);
+function monthName(key){const [y,m]=key.split("-");return new Date(+y,+m-1,1).toLocaleDateString("es-MX",{month:"short",year:"2-digit"});}
+function populateFilters(){
+ const months=[...new Set(allData.map(r=>r.date.slice(0,7)))].sort();
+ const cats=[...new Set(allData.map(r=>r.category))].sort();
+ $("monthFilter").innerHTML='<option value="all">Todos los meses</option>'+months.map(m=>`<option value="${m}">${monthName(m)}</option>`).join("");
+ $("categoryFilter").innerHTML='<option value="all">Todas las categorías</option>'+cats.map(c=>`<option>${escapeHtml(c)}</option>`).join("");
+}
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+function applyFilters(){
+ const m=$("monthFilter").value,c=$("categoryFilter").value,q=$("search").value.toLowerCase().trim();
+ filtered=allData.filter(r=>(m==="all"||r.date.startsWith(m))&&(c==="all"||r.category===c)&&(!q||r.product.toLowerCase().includes(q)||r.order.toLowerCase().includes(q)));
+ render();
+}
+function render(){
+ const rows=filtered, orders=new Set(rows.map(r=>r.order)).size, revenue=rows.reduce((s,r)=>s+r.qty*r.price,0);
+ const onTime=rows.length?100*rows.filter(r=>r.delivered<=r.promised).length/rows.length:0;
+ const low=[...new Set(rows.filter(r=>r.stock<20).map(r=>r.product))];
+ const incidents=rows.reduce((s,r)=>s+r.incidents,0);
+ $("revenue").textContent=money(revenue);$("orders").textContent=orders.toLocaleString("es-MX");
+ $("onTime").textContent=onTime.toFixed(1)+"%";$("lowStock").textContent=low.length;$("quality").textContent=incidents;
+ $("recordCount").textContent=`${rows.length} líneas analizadas · ${orders} pedidos únicos`;
+ drawSales(rows);drawCategories(rows);drawInsights(rows,onTime,low,incidents);
+ $("dataTable").innerHTML=rows.slice(0,15).map(r=>`<tr><td>${r.date}</td><td>${escapeHtml(r.order)}</td><td>${escapeHtml(r.category)}</td><td>${escapeHtml(r.product)}</td><td>${r.qty}</td><td>${money(r.qty*r.price)}</td><td>${r.stock}</td><td><span class="pill ${r.delivered<=r.promised?"ok":"no"}">${r.delivered<=r.promised?"A tiempo":"Retraso"}</span></td><td>${r.incidents}</td></tr>`).join("")||'<tr><td colspan="9">No hay registros para los filtros seleccionados.</td></tr>';
+ $("tableNote").textContent=rows.length>15?`Se muestran 15 de ${rows.length} registros filtrados.`:"";
+}
+function drawSales(rows){
+ const c=$("salesChart"),ctx=c.getContext("2d"),w=c.clientWidth,h=235,dpr=window.devicePixelRatio||1;
+ c.width=w*dpr;c.height=h*dpr;ctx.scale(dpr,dpr);ctx.clearRect(0,0,w,h);
+ const months=[...new Set(rows.map(r=>r.date.slice(0,7)))].sort();const vals=months.map(m=>rows.filter(r=>r.date.startsWith(m)).reduce((s,r)=>s+r.qty*r.price,0));
+ const max=Math.max(1,...vals),left=43,right=10,top=12,bottom=35,chartH=h-top-bottom,chartW=w-left-right;
+ ctx.font="10px Arial";ctx.strokeStyle="#e8edf3";ctx.fillStyle="#8290a0";ctx.lineWidth=1;
+ for(let i=0;i<=4;i++){let y=top+chartH*i/4;ctx.beginPath();ctx.moveTo(left,y);ctx.lineTo(w-right,y);ctx.stroke();ctx.fillText((max*(1-i/4)/1000).toFixed(0)+"k",3,y+3);}
+ const step=chartW/Math.max(1,months.length),bw=Math.min(34,step*.55);
+ vals.forEach((v,i)=>{let bh=v/max*(chartH-5),x=left+i*step+(step-bw)/2,y=top+chartH-bh;ctx.fillStyle="#0877b9";ctx.beginPath();ctx.roundRect(x,y,bw,bh,4);ctx.fill();ctx.fillStyle="#718096";ctx.textAlign="center";ctx.fillText(monthName(months[i]||"2026-01"),x+bw/2,h-12);});
+ if(!months.length){ctx.fillStyle="#718096";ctx.textAlign="center";ctx.fillText("Sin datos para graficar",w/2,h/2);}
+}
+function drawCategories(rows){
+ const counts=categories.map(c=>({name:c,n:rows.filter(r=>r.category===c).length})).filter(x=>x.n).sort((a,b)=>b.n-a.n),max=Math.max(1,...counts.map(x=>x.n));
+ $("categoryBars").innerHTML=counts.map(x=>`<div class="bar-row"><span>${escapeHtml(x.name)}</span><div class="track"><div class="fill" style="width:${x.n/max*100}%"></div></div><b>${x.n}</b></div>`).join("")||'<p class="notice">Sin datos disponibles.</p>';
+}
+function drawInsights(rows,onTime,low,incidents){
+ const risk=rows.length===0?"Sin datos":(onTime<85||low.length>=5||incidents>=8?"ALTO":onTime<95||low.length>0||incidents>0?"ATENCIÓN":"ESTABLE");
+ $("riskStatus").textContent=risk;$("riskStatus").className="pill "+(risk==="ALTO"?"no":risk==="ATENCIÓN"?"mid":"ok");
+ $("riskText").textContent=risk==="ALTO"?"Hay señales que ameritan priorización. Revisar pedidos retrasados, existencias críticas y causas de calidad.":risk==="ATENCIÓN"?"Conviene dar seguimiento a los indicadores fuera del nivel esperado y validar causas con el área responsable.":risk==="ESTABLE"?"Los indicadores del conjunto filtrado no muestran alertas bajo las reglas demostrativas.":"Selecciona otro filtro o carga registros.";
+ $("inventoryAlert").textContent=low.length?`${low.length} productos distintos tienen stock menor a 20 unidades. Siguiente paso: contrastar demanda, plazo de reposición y stock de seguridad antes de priorizar compras.`:"No se detectan productos por debajo del umbral demostrativo de 20 unidades.";
+ const avg=rows.length?rows.reduce((s,r)=>s+r.satisfaction,0)/rows.length:0;
+ $("qualityInsight").textContent=`${incidents} incidencias registradas. Satisfacción promedio: ${rows.length?avg.toFixed(1)+"%":"sin datos"}. Analizar incidencias por producto, lote y periodo para buscar causas recurrentes.`;
+}
+function parseCSV(text){
+ const lines=text.replace(/^\uFEFF/,"").split(/\r?\n/).filter(x=>x.trim());if(lines.length<2)throw Error("El CSV no contiene filas de datos.");
+ const parseLine=line=>{let a=[],v="",q=false;for(let i=0;i<line.length;i++){let ch=line[i];if(ch==='"'&&line[i+1]==='"'&&q){v+='"';i++;}else if(ch==='"')q=!q;else if(ch===","&&!q){a.push(v.trim());v="";}else v+=ch;}a.push(v.trim());return a;};
+ const headers=parseLine(lines[0]).map(x=>x.toLowerCase());
+ const required=["date","order","category","product","qty","price","stock","promised","delivered","incidents","satisfaction"];
+ const missing=required.filter(k=>!headers.includes(k));if(missing.length)throw Error("Faltan columnas: "+missing.join(", "));
+ return lines.slice(1).map((line,i)=>{const vals=parseLine(line),o={};headers.forEach((h,j)=>o[h]=vals[j]??"");
+  const r={date:o.date,order:o.order,category:o.category,product:o.product,qty:Number(o.qty),price:Number(o.price),stock:Number(o.stock),promised:o.promised,delivered:o.delivered,incidents:Number(o.incidents),satisfaction:Number(o.satisfaction)};
+  if(!r.date||!r.order||!r.category||!r.product||![r.qty,r.price,r.stock,r.incidents,r.satisfaction].every(Number.isFinite)||r.qty<0||r.price<0||r.stock<0||r.incidents<0||r.satisfaction<0||r.satisfaction>100||!Number.isFinite(Date.parse(r.date))||!Number.isFinite(Date.parse(r.promised))||!Number.isFinite(Date.parse(r.delivered)))throw Error("Datos inválidos en la fila "+(i+2));
+  return r;
+ });
+}
+["monthFilter","categoryFilter"].forEach(id=>$(id).addEventListener("change",applyFilters));$("search").addEventListener("input",applyFilters);
+$("resetBtn").addEventListener("click",()=>{$("monthFilter").value="all";$("categoryFilter").value="all";$("search").value="";applyFilters();});
+$("csvFile").addEventListener("change",async e=>{const f=e.target.files[0];if(!f)return;try{const parsed=parseCSV(await f.text());allData=parsed;populateFilters();$("monthFilter").value="all";$("categoryFilter").value="all";$("search").value="";applyFilters();alert(`Se cargaron ${parsed.length} registros correctamente.`);}catch(err){alert("No se pudo cargar el archivo: "+err.message);}e.target.value="";});
+$("exportBtn").addEventListener("click",()=>{const cols=["date","order","category","product","qty","price","stock","promised","delivered","incidents","satisfaction"];const quote=v=>'"'+String(v).replace(/"/g,'""')+'"';const csv=[cols.join(","),...filtered.map(r=>cols.map(k=>quote(r[k])).join(","))].join("\r\n");const a=document.createElement("a");a.href=URL.createObjectURL(new Blob(["\uFEFF"+csv],{type:"text/csv;charset=utf-8"}));a.download="misumi_datos_filtrados.csv";a.click();URL.revokeObjectURL(a.href);});
+window.addEventListener("resize",()=>drawSales(filtered));
+populateFilters();applyFilters();
 </script>
-
 </body>
-</html>
+</html>'''
+path = Path("/mnt/data/MISUMI_Data_Intelligence_Demo.html")
+path.write_text(html, encoding="utf-8")
+print(f"Archivo creado: {path} ({path.stat().st_size:,} bytes)")
