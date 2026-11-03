@@ -5,185 +5,157 @@ html = r'''<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MISUMI | Data Intelligence Demo</title>
+<title>Customer Health AI | MISUMI Portfolio Demo</title>
 <style>
-:root{--navy:#102b46;--blue:#0756a5;--cyan:#19a7c9;--gold:#f2c400;--bg:#f3f6fa;--ink:#1c3045;--muted:#718096;--line:#e5ebf2;--green:#16865b;--red:#c83d4b;--amber:#b7791f;--white:#fff}
+:root{--navy:#102b46;--blue:#0756a5;--cyan:#1a9fc0;--gold:#f2c400;--bg:#f3f6fa;--ink:#1c3045;--muted:#718096;--line:#e5ebf2;--green:#16865b;--red:#c83d4b;--amber:#b7791f;--white:#fff}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:Inter,Segoe UI,Arial,sans-serif;color:var(--ink)}
-header{background:var(--navy);color:white;padding:17px max(22px,calc((100% - 1380px)/2));display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
-.brand{font-size:25px;font-weight:900;letter-spacing:2px}.brand span{color:var(--gold)}header small{color:#c8d5e2;letter-spacing:.7px}
-main{max-width:1380px;margin:auto;padding:26px 22px 50px}
-.hero{background:white;border:1px solid var(--line);border-left:5px solid var(--gold);border-radius:13px;padding:22px 24px;margin-bottom:22px;display:flex;justify-content:space-between;gap:20px;align-items:center;flex-wrap:wrap}
-h1{font-size:24px;margin:0 0 8px}.muted{color:var(--muted);line-height:1.55}.demo{background:#fff6d8;color:#775800;border-radius:30px;padding:8px 13px;font-size:12px;font-weight:800;white-space:nowrap}
-.toolbar{display:flex;gap:10px;align-items:end;flex-wrap:wrap;background:white;border:1px solid var(--line);padding:15px;border-radius:12px;margin-bottom:22px}
-.field{min-width:160px;flex:1}label{display:block;font-size:12px;font-weight:800;color:#536477;margin:0 0 7px}
-input,select{width:100%;border:1px solid #d7e0e9;background:#fff;border-radius:8px;padding:10px 11px;color:var(--ink);font-size:14px}
-button,.file-label{border:0;border-radius:8px;padding:11px 15px;background:var(--blue);color:white;font-weight:750;font-size:13px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:7px}
-button.secondary,.file-label.secondary{background:#eaf1f8;color:var(--blue)}button:hover,.file-label:hover{filter:brightness(.95)}
-input[type=file]{display:none}
-.section-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:27px 0 13px;flex-wrap:wrap}
-h2{font-size:17px;margin:0}.section-note{font-size:12px;color:var(--muted)}
-.kpis{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:13px}
-.card,.panel{background:white;border:1px solid var(--line);border-radius:12px;box-shadow:0 3px 12px #102b4608}
-.card{padding:17px}.k-label{font-size:12px;color:var(--muted);font-weight:700}.k-value{font-size:27px;font-weight:850;margin:10px 0 5px;letter-spacing:-.6px}.k-foot{font-size:11px;color:var(--muted)}
-.good{color:var(--green)}.warn{color:var(--amber)}.bad{color:var(--red)}
-.grid-2{display:grid;grid-template-columns:1.35fr 1fr;gap:15px}.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
-.panel{padding:19px;min-width:0}.panel h3{font-size:14px;margin:0 0 4px}.panel .sub{font-size:11px;color:var(--muted);margin-bottom:15px}
-canvas{width:100%;height:235px;display:block}
-.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:11px;color:var(--muted);margin-top:8px}.dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px}
-.bar-list{display:grid;gap:14px}.bar-row{display:grid;grid-template-columns:105px 1fr 45px;gap:9px;align-items:center;font-size:12px}.track{height:9px;background:#edf1f5;border-radius:20px;overflow:hidden}.fill{height:100%;border-radius:20px;background:var(--blue)}
-.insights{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.insight{padding:14px;border-radius:10px;background:#f6f8fb;border:1px solid var(--line)}.insight strong{display:block;font-size:12px;margin-bottom:6px}.insight p{font-size:12px;line-height:1.5;color:#5e6e80;margin:0}
-.table-wrap{overflow:auto}table{width:100%;border-collapse:collapse;font-size:12px;white-space:nowrap}th,td{text-align:left;padding:11px 10px;border-bottom:1px solid #edf1f5}th{color:#738195;font-size:11px;text-transform:uppercase;letter-spacing:.4px}tbody tr:hover{background:#f8fafc}
-.pill{display:inline-block;padding:4px 8px;border-radius:20px;font-size:10px;font-weight:800}.pill.ok{background:#e0f5eb;color:#08794a}.pill.mid{background:#fff2d1;color:#946400}.pill.no{background:#ffe5e7;color:#b42332}
-.footer{padding:25px 5px 0;text-align:center;color:#8995a3;font-size:11px}
-.notice{font-size:12px;color:#6c7888;line-height:1.55;margin-top:12px}
-@media(max-width:1000px){.kpis{grid-template-columns:repeat(3,1fr)}.grid-2{grid-template-columns:1fr}.grid-3{grid-template-columns:1fr}.insights{grid-template-columns:1fr}}
-@media(max-width:600px){main{padding:16px 12px}.kpis{grid-template-columns:repeat(2,1fr)}.k-value{font-size:23px}.hero{padding:18px}.bar-row{grid-template-columns:85px 1fr 38px}}
+header{background:var(--navy);color:#fff;padding:15px max(20px,calc((100% - 1320px)/2));display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.brand{font-weight:900;font-size:23px;letter-spacing:2px}.brand span{color:var(--gold)}.header-right{font-size:11px;color:#c8d5e2;letter-spacing:.8px}
+main{max-width:1320px;margin:auto;padding:25px 22px 50px}
+.hero{display:flex;justify-content:space-between;align-items:center;gap:18px;background:#fff;border:1px solid var(--line);border-left:5px solid var(--gold);border-radius:13px;padding:22px 24px;margin-bottom:18px;flex-wrap:wrap}
+.eyebrow{font-size:10px;font-weight:800;color:var(--blue);letter-spacing:1.4px;margin-bottom:7px}
+h1{font-size:25px;margin:0 0 7px}.muted{color:var(--muted);line-height:1.55}.demo{background:#fff6d8;color:#775800;border-radius:30px;padding:8px 13px;font-size:11px;font-weight:800;white-space:nowrap}
+.layout{display:grid;grid-template-columns:310px minmax(0,1fr);gap:17px;align-items:start}
+.panel,.card{background:#fff;border:1px solid var(--line);border-radius:13px;box-shadow:0 3px 12px #102b4608}
+.panel{padding:18px}.panel h2{font-size:15px;margin:0 0 5px}.sub{font-size:11px;color:var(--muted);line-height:1.45}
+label{display:block;font-size:11px;font-weight:800;color:#536477;margin:15px 0 7px}
+input,select,textarea{width:100%;border:1px solid #d7e0e9;background:#fff;border-radius:8px;padding:11px;color:var(--ink);font:inherit;font-size:13px;outline:none}
+input:focus,select:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 0 3px #0756a51a}
+button{border:0;border-radius:8px;padding:11px 14px;background:var(--blue);color:#fff;font-weight:750;font-size:12px;cursor:pointer}
+button:hover{filter:brightness(.94)}button.secondary{background:#eaf1f8;color:var(--blue)}button.ghost{background:transparent;color:var(--blue);padding:8px 0}
+.customer-list{display:grid;gap:7px;margin-top:14px}
+.customer{border:1px solid var(--line);border-radius:9px;padding:11px;text-align:left;background:#fff;color:var(--ink);width:100%;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.customer.active{border-color:var(--blue);background:#f0f6fc}.customer strong{display:block;font-size:12px}.customer small{display:block;color:var(--muted);font-size:10px;margin-top:4px}
+.dot{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:5px}.low{background:var(--green)}.medium{background:#d69a20}.high{background:var(--red)}
+.content{display:grid;gap:15px;min-width:0}
+.profile{display:flex;justify-content:space-between;gap:15px;align-items:flex-start;flex-wrap:wrap}
+.profile h2{font-size:19px;margin:0 0 5px}.meta{font-size:11px;color:var(--muted);line-height:1.6}
+.risk-wrap{display:flex;align-items:center;gap:12px}
+.score{width:74px;height:74px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--red) 0 78%,#edf1f5 78% 100%);position:relative}
+.score:before{content:"";position:absolute;inset:7px;border-radius:50%;background:#fff}.score b{position:relative;font-size:20px}
+.risk-label{font-size:12px;font-weight:900}.risk-label.high-text{color:var(--red)}.risk-label.medium-text{color:var(--amber)}.risk-label.low-text{color:var(--green)}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.kpi{padding:14px;background:#fff;border:1px solid var(--line);border-radius:11px}.kpi small{font-size:10px;color:var(--muted);font-weight:800}.kpi strong{display:block;font-size:21px;margin:8px 0 4px}.kpi span{font-size:10px;color:var(--muted)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.signal-list{display:grid;gap:11px;margin-top:15px}.signal{display:flex;gap:10px;align-items:flex-start}.signal-icon{width:25px;height:25px;border-radius:7px;display:grid;place-items:center;background:#f2f5f8;font-size:13px;flex-shrink:0}.signal strong{font-size:11px;display:block;margin-bottom:3px}.signal p{font-size:11px;color:var(--muted);margin:0;line-height:1.45}
+.recommendations{display:grid;gap:9px;margin-top:14px}.rec{display:flex;gap:10px;padding:11px;border:1px solid var(--line);border-radius:9px;background:#fbfcfe}.num{width:23px;height:23px;border-radius:7px;background:#eaf1f8;color:var(--blue);display:grid;place-items:center;font-size:11px;font-weight:900;flex-shrink:0}.rec strong{font-size:11px;display:block;margin-bottom:3px}.rec p{font-size:11px;color:var(--muted);margin:0;line-height:1.45}
+.chat{display:flex;flex-direction:column;gap:12px}.chat-head{display:flex;align-items:center;gap:9px}.bot{width:34px;height:34px;border-radius:10px;background:var(--navy);color:white;display:grid;place-items:center;font-size:17px}
+.chat-log{background:#f7f9fc;border:1px solid var(--line);border-radius:10px;padding:13px;min-height:150px;max-height:280px;overflow:auto;display:grid;gap:10px}
+.msg{max-width:92%;padding:10px 12px;border-radius:10px;font-size:11px;line-height:1.55;white-space:pre-line}.msg.ai{background:#fff;border:1px solid var(--line);justify-self:start}.msg.user{background:#eaf3fc;color:#164b7c;justify-self:end}
+.chat-form{display:flex;gap:8px}.chat-form input{flex:1}.prompts{display:flex;gap:6px;flex-wrap:wrap}.prompts button{font-size:10px;padding:7px 9px}
+.notice{font-size:10px;color:var(--muted);line-height:1.55}.footer{text-align:center;color:#8995a3;font-size:10px;padding:18px 5px}
+.tag{display:inline-block;border-radius:20px;padding:5px 8px;font-size:10px;font-weight:800;background:#eef3f8;color:#516579}
+@media(max-width:900px){.layout{grid-template-columns:1fr}.customer-list{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){main{padding:14px 11px 35px}.hero{padding:17px}.kpis{grid-template-columns:repeat(2,1fr)}.grid2{grid-template-columns:1fr}.customer-list{grid-template-columns:1fr}.risk-wrap{width:100%;justify-content:flex-start}.chat-form{flex-direction:column}}
 </style>
 </head>
 <body>
-<header><div class="brand">MISUMI<span>●</span></div><small>DATA INTELLIGENCE | PORTFOLIO DEMO</small></header>
+<header><div class="brand">MISUMI<span>●</span></div><div class="header-right">CUSTOMER INTELLIGENCE · AI ASSISTANT</div></header>
 <main>
 <section class="hero">
- <div><h1>Panel de inteligencia operativa</h1><div class="muted">Análisis de pedidos, inventario, entregas y calidad para convertir datos operativos en decisiones.</div></div>
- <div class="demo">DATOS SIMULADOS · NO OFICIALES</div>
+ <div><div class="eyebrow">CUSTOMER HEALTH INTELLIGENCE</div><h1>Asistente de salud y riesgo del cliente</h1><div class="muted">Identifica señales de riesgo, entiende qué está pasando y convierte el análisis en acciones comerciales.</div></div>
+ <div class="demo">PORTFOLIO DEMO · DATOS SIMULADOS</div>
 </section>
-<section class="toolbar" aria-label="Filtros del dashboard">
- <div class="field"><label for="monthFilter">PERIODO</label><select id="monthFilter"><option value="all">Todos los meses</option></select></div>
- <div class="field"><label for="categoryFilter">CATEGORÍA</label><select id="categoryFilter"><option value="all">Todas las categorías</option></select></div>
- <div class="field"><label for="search">BUSCAR PRODUCTO / PEDIDO</label><input id="search" placeholder="Ej. guía lineal o ORD-"></div>
- <button class="secondary" id="resetBtn">Restablecer</button>
- <label class="file-label" for="csvFile">↑ Cargar CSV</label><input id="csvFile" type="file" accept=".csv,text/csv">
- <button id="exportBtn">↓ Exportar vista</button>
-</section>
-
-<div class="section-head"><h2>Indicadores clave de desempeño</h2><span class="section-note" id="recordCount">Registros analizados</span></div>
-<section class="kpis">
- <article class="card"><div class="k-label">VENTAS SIMULADAS</div><div class="k-value" id="revenue">$0</div><div class="k-foot">Importe de las líneas filtradas</div></article>
- <article class="card"><div class="k-label">PEDIDOS</div><div class="k-value" id="orders">0</div><div class="k-foot">Pedidos únicos</div></article>
- <article class="card"><div class="k-label">ENTREGAS A TIEMPO</div><div class="k-value" id="onTime">0%</div><div class="k-foot" id="onTimeFoot">Cumplimiento de fecha prometida</div></article>
- <article class="card"><div class="k-label">PRODUCTOS CON STOCK BAJO</div><div class="k-value" id="lowStock">0</div><div class="k-foot">Stock inferior al punto de alerta (20)</div></article>
- <article class="card"><div class="k-label">INCIDENCIAS DE CALIDAD</div><div class="k-value" id="quality">0</div><div class="k-foot">Incidencias registradas</div></article>
-</section>
-
-<div class="section-head"><h2>Comportamiento y composición</h2><span class="section-note">Los gráficos responden a los filtros seleccionados</span></div>
-<section class="grid-2">
- <article class="panel"><h3>Ventas por mes</h3><div class="sub">Suma del importe de las líneas de pedido</div><canvas id="salesChart" aria-label="Gráfico de ventas por mes"></canvas></article>
- <article class="panel"><h3>Pedidos por categoría</h3><div class="sub">Distribución de registros por familia de producto</div><div id="categoryBars" class="bar-list"></div></article>
-</section>
-<div class="section-head"><h2>Diagnóstico y oportunidades</h2><span class="section-note">Reglas transparentes, no un modelo predictivo entrenado</span></div>
-<section class="grid-3">
- <article class="panel"><h3>Semáforo operativo</h3><div class="sub">Evaluación basada en los indicadores visibles</div><div id="riskStatus" class="pill mid">Calculando</div><p id="riskText" class="notice"></p></article>
- <article class="panel"><h3>Alertas de inventario</h3><div class="sub">Productos con stock menor a 20 unidades</div><div id="inventoryAlert" class="notice"></div></article>
- <article class="panel"><h3>Calidad y servicio</h3><div class="sub">Incidencias y satisfacción promedio</div><div id="qualityInsight" class="notice"></div></article>
-</section>
-<div class="section-head"><h2>Detalle de registros</h2><span class="section-note">Muestra de hasta 15 líneas según filtros</span></div>
-<section class="panel table-wrap">
-<table><thead><tr><th>Fecha</th><th>Pedido</th><th>Categoría</th><th>Producto</th><th>Unidades</th><th>Importe</th><th>Stock</th><th>Entrega</th><th>Calidad</th></tr></thead><tbody id="dataTable"></tbody></table>
-<div class="notice" id="tableNote"></div>
-</section>
-<section class="panel" style="margin-top:15px">
- <h3>Metodología y supuestos</h3>
- <p class="notice">• Entrega a tiempo: fecha real de entrega menor o igual a la fecha prometida.<br>• Stock bajo: existencia menor a 20 unidades. Es un umbral demostrativo, no una política de inventario de MISUMI.<br>• Ventas: unidades por precio unitario. Los importes son ficticios.<br>• El análisis es descriptivo y basado en reglas. Para un entorno real se requerirían definiciones de negocio, calidad de datos, fuentes autorizadas y validación con las áreas responsables.</p>
-</section>
-<div class="footer">MISUMI | Data Intelligence Demo · Proyecto independiente para entrevista · Datos 100% simulados</div>
+<div class="layout">
+ <aside class="panel">
+  <h2>Explorar clientes</h2><div class="sub">Selecciona un perfil para consultar su salud comercial.</div>
+  <label for="searchCustomer">BUSCAR CLIENTE</label><input id="searchCustomer" placeholder="Nombre o ID...">
+  <div class="customer-list" id="customerList"></div>
+  <div style="margin-top:15px;padding-top:13px;border-top:1px solid var(--line)">
+   <div class="sub">¿Quieres probar otro escenario?</div>
+   <button class="secondary" style="width:100%;margin-top:9px" id="randomBtn">Generar escenario de prueba</button>
+  </div>
+ </aside>
+ <section class="content">
+  <article class="panel profile">
+   <div><div class="eyebrow">PERFIL DEL CLIENTE</div><h2 id="customerName">Grupo Industrial del Centro</h2><div class="meta" id="customerMeta">Cliente · Manufactura · Querétaro, México</div><div style="margin-top:10px"><span class="tag" id="customerSince">Cliente desde 2022</span></div></div>
+   <div class="risk-wrap"><div class="score" id="scoreRing"><b id="score">78</b></div><div><div class="risk-label high-text" id="riskLabel">RIESGO ALTO</div><div class="sub">Índice demostrativo<br>0 = bajo · 100 = alto</div></div></div>
+  </article>
+  <section class="kpis">
+   <div class="kpi"><small>VENTAS ÚLTIMOS 90 DÍAS</small><strong id="sales">$184 mil</strong><span id="salesTrend">↓ 32% vs. periodo anterior</span></div>
+   <div class="kpi"><small>ÚLTIMO PEDIDO</small><strong id="lastOrder">47 días</strong><span>Desde la última compra</span></div>
+   <div class="kpi"><small>FRECUENCIA DE COMPRA</small><strong id="frequency">Cada 21 días</strong><span>Promedio histórico</span></div>
+   <div class="kpi"><small>INCIDENCIAS ABIERTAS</small><strong id="incidents">3</strong><span>Servicio y calidad</span></div>
+  </section>
+  <section class="grid2">
+   <article class="panel"><h2>¿Qué señales detectamos?</h2><div class="sub">Factores que influyen en la evaluación actual.</div><div class="signal-list" id="signals"></div></article>
+   <article class="panel"><h2>Recomendaciones de acción</h2><div class="sub">Siguientes pasos sugeridos para el equipo comercial.</div><div class="recommendations" id="recommendations"></div></article>
+  </section>
+  <article class="panel chat">
+   <div class="chat-head"><div class="bot">✦</div><div><h2 style="margin:0">Customer Health AI Assistant</h2><div class="sub">Pregunta por el diagnóstico, los factores de riesgo o las acciones sugeridas.</div></div><span class="tag" style="margin-left:auto">ASISTENTE DEMO</span></div>
+   <div class="chat-log" id="chatLog"><div class="msg ai">Hola. Ya analicé el perfil seleccionado. Puedes preguntarme por qué tiene ese nivel de riesgo, qué señales son prioritarias o qué debería hacer el equipo comercial.</div></div>
+   <div class="prompts"><button class="secondary prompt" data-q="¿Por qué este cliente tiene ese nivel de riesgo?">¿Por qué tiene ese riesgo?</button><button class="secondary prompt" data-q="¿Qué debería hacer primero el equipo comercial?">¿Qué hago primero?</button><button class="secondary prompt" data-q="Resume el estado de este cliente para mi gerente.">Resumen para gerente</button></div>
+   <form class="chat-form" id="chatForm"><input id="chatInput" placeholder="Ej. ¿Qué cambió en su comportamiento?" autocomplete="off"><button type="submit">Consultar</button></form>
+   <div class="notice">La conversación utiliza respuestas demostrativas basadas en reglas y datos ficticios. No está conectada a un modelo de IA ni a sistemas de MISUMI.</div>
+  </article>
+  <div class="notice">Metodología: el índice de riesgo es una puntuación ilustrativa basada en señales como caída de ventas, días desde la última compra, variación de frecuencia e incidencias. Los umbrales deben validarse con datos históricos y especialistas del negocio antes de cualquier uso real.</div>
+ </section>
+</div>
+<div class="footer">Proyecto independiente para demostración técnica · MISUMI no patrocina ni valida este prototipo · 100% datos simulados</div>
 </main>
 <script>
-const categories=["Guías lineales","Tornillería","Rodamientos","Actuadores","Sensores"];
-const products={
- "Guías lineales":["Guía lineal serie HSR","Riel de precisión 400 mm","Carro deslizante compacto"],
- "Tornillería":["Tornillo hexagonal M8","Tuerca de precisión M6","Perno de fijación"],
- "Rodamientos":["Rodamiento rígido 6204","Rodamiento lineal LM20","Soporte de eje"],
- "Actuadores":["Actuador eléctrico 24V","Cilindro compacto","Módulo de posicionamiento"],
- "Sensores":["Sensor de proximidad","Sensor fotoeléctrico","Interruptor de límite"]
-};
-const money=n=>new Intl.NumberFormat("es-MX",{style:"currency",currency:"MXN",maximumFractionDigits:0}).format(n);
-const pad=n=>String(n).padStart(2,"0");
-function dateStr(d){return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`}
-function makeSample(){
- let rows=[]; const today=new Date(); const start=new Date(today.getFullYear(),today.getMonth()-5,1);
- for(let i=0;i<120;i++){
-  const d=new Date(start.getFullYear(),start.getMonth(),1+Math.floor(Math.random()*((new Date(start.getFullYear(),start.getMonth()+1,0)).getDate())));
-  d.setMonth(start.getMonth()+Math.floor(Math.random()*6));
-  const cat=categories[Math.floor(Math.random()*categories.length)];
-  const product=products[cat][Math.floor(Math.random()*products[cat].length)];
-  const qty=1+Math.floor(Math.random()*18), price=120+Math.floor(Math.random()*4800);
-  const promised=new Date(d); promised.setDate(promised.getDate()+3+Math.floor(Math.random()*8));
-  const delivered=new Date(promised); delivered.setDate(delivered.getDate()+Math.floor(Math.random()*7)-2);
-  rows.push({date:dateStr(d),order:"ORD-"+String(10001+i),category:cat,product,qty,price,stock:Math.floor(Math.random()*100),promised:dateStr(promised),delivered:dateStr(delivered),incidents:Math.random()<.09?1:0,satisfaction:Math.floor(75+Math.random()*26)});
- }
- return rows;
-}
-let allData=makeSample(), filtered=[];
+const customers=[
+{id:"C-1048",name:"Grupo Industrial del Centro",sector:"Manufactura",city:"Querétaro, México",since:"2022",sales:184000,trend:-32,last:47,freq:21,incidents:3,risk:78,signals:[
+["↘","Caída significativa en ventas","Las compras disminuyeron 32% frente a los 90 días anteriores."],
+["◷","Mayor tiempo sin comprar","Han pasado 47 días desde el último pedido; su intervalo habitual es de 21 días."],
+["!","Incidencias sin resolver","Hay 3 incidencias abiertas que podrían afectar la experiencia del cliente."]],
+recs:["Contactar al responsable de compras en las próximas 24 horas para entender la pausa en pedidos.","Coordinar con servicio al cliente la resolución y seguimiento de las 3 incidencias abiertas.","Preparar una propuesta de reposición basada en su patrón histórico, sin asumir demanda futura."]},
+{id:"C-2091",name:"Automatización del Bajío",sector:"Automatización industrial",city:"León, Guanajuato",since:"2020",sales:426000,trend:18,last:8,freq:18,incidents:0,risk:14,signals:[
+["✓","Compras estables","El volumen de ventas creció 18% respecto al periodo anterior."],
+["✓","Actividad reciente","Su último pedido fue hace 8 días, dentro de su ciclo habitual."],
+["✓","Sin incidencias abiertas","No se observan incidencias pendientes en el escenario de datos."]],
+recs:["Mantener el seguimiento comercial habitual y confirmar satisfacción.","Explorar oportunidades de venta cruzada relacionadas con sus categorías recurrentes.","Revisar el calendario de reposición para anticipar necesidades."]},
+{id:"C-3176",name:"Soluciones Mecánicas del Norte",sector:"Maquinaria",city:"Monterrey, Nuevo León",since:"2021",sales:263000,trend:-12,last:29,freq:24,incidents:1,risk:49,signals:[
+["↘","Ventas ligeramente a la baja","Las compras disminuyeron 12% frente al periodo anterior."],
+["◷","Compra fuera de su ritmo habitual","Han pasado 29 días desde el último pedido, frente a un promedio de 24."],
+["!","Una incidencia abierta","Conviene verificar si el caso está afectando nuevas órdenes."]],
+recs:["Realizar contacto preventivo para validar próximos requerimientos.","Dar seguimiento a la incidencia y confirmar fecha de resolución.","Monitorear el siguiente ciclo de compra antes de escalar el nivel de riesgo."]},
+{id:"C-4220",name:"Tecnología de Precisión MX",sector:"Electrónica",city:"Puebla, Puebla",since:"2023",sales:97000,trend:-41,last:63,freq:25,incidents:4,risk:91,signals:[
+["↘","Contracción fuerte de ventas","Las compras cayeron 41% frente a los 90 días anteriores."],
+["◷","Inactividad prolongada","Han pasado 63 días desde su último pedido, más del doble de su frecuencia habitual."],
+["!","Incidencias acumuladas","Se registran 4 incidencias abiertas que requieren revisión prioritaria."]],
+recs:["Escalar el caso al responsable comercial y de servicio para contacto prioritario hoy.","Investigar causas de las incidencias y acordar un plan de resolución con responsables y fechas.","Agendar una revisión ejecutiva con el cliente para recuperar confianza y conocer sus planes de compra."]}
+];
+let active=0;
 const $=id=>document.getElementById(id);
-function monthName(key){const [y,m]=key.split("-");return new Date(+y,+m-1,1).toLocaleDateString("es-MX",{month:"short",year:"2-digit"});}
-function populateFilters(){
- const months=[...new Set(allData.map(r=>r.date.slice(0,7)))].sort();
- const cats=[...new Set(allData.map(r=>r.category))].sort();
- $("monthFilter").innerHTML='<option value="all">Todos los meses</option>'+months.map(m=>`<option value="${m}">${monthName(m)}</option>`).join("");
- $("categoryFilter").innerHTML='<option value="all">Todas las categorías</option>'+cats.map(c=>`<option>${escapeHtml(c)}</option>`).join("");
+const money=n=>new Intl.NumberFormat("es-MX",{style:"currency",currency:"MXN",maximumFractionDigits:0}).format(n);
+function renderList(){
+ const q=$("searchCustomer").value.toLowerCase();
+ $("customerList").innerHTML=customers.filter(c=>(c.name+" "+c.id).toLowerCase().includes(q)).map(c=>`<button class="customer ${customers[active].id===c.id?"active":""}" data-id="${c.id}"><span><strong>${c.name}</strong><small>${c.id} · ${c.sector}</small></span><span><i class="dot ${c.risk>=70?"high":c.risk>=35?"medium":"low"}"></i></span></button>`).join("")||'<div class="sub">No se encontraron clientes.</div>';
+ document.querySelectorAll(".customer").forEach(b=>b.addEventListener("click",()=>selectCustomer(b.dataset.id)));
 }
-function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
-function applyFilters(){
- const m=$("monthFilter").value,c=$("categoryFilter").value,q=$("search").value.toLowerCase().trim();
- filtered=allData.filter(r=>(m==="all"||r.date.startsWith(m))&&(c==="all"||r.category===c)&&(!q||r.product.toLowerCase().includes(q)||r.order.toLowerCase().includes(q)));
- render();
+function selectCustomer(id){
+ active=customers.findIndex(c=>c.id===id);renderList();renderProfile();
+ $("chatLog").innerHTML='<div class="msg ai">Perfil actualizado. Ya tengo el contexto del cliente seleccionado. ¿Qué te gustaría analizar?</div>';
 }
-function render(){
- const rows=filtered, orders=new Set(rows.map(r=>r.order)).size, revenue=rows.reduce((s,r)=>s+r.qty*r.price,0);
- const onTime=rows.length?100*rows.filter(r=>r.delivered<=r.promised).length/rows.length:0;
- const low=[...new Set(rows.filter(r=>r.stock<20).map(r=>r.product))];
- const incidents=rows.reduce((s,r)=>s+r.incidents,0);
- $("revenue").textContent=money(revenue);$("orders").textContent=orders.toLocaleString("es-MX");
- $("onTime").textContent=onTime.toFixed(1)+"%";$("lowStock").textContent=low.length;$("quality").textContent=incidents;
- $("recordCount").textContent=`${rows.length} líneas analizadas · ${orders} pedidos únicos`;
- drawSales(rows);drawCategories(rows);drawInsights(rows,onTime,low,incidents);
- $("dataTable").innerHTML=rows.slice(0,15).map(r=>`<tr><td>${r.date}</td><td>${escapeHtml(r.order)}</td><td>${escapeHtml(r.category)}</td><td>${escapeHtml(r.product)}</td><td>${r.qty}</td><td>${money(r.qty*r.price)}</td><td>${r.stock}</td><td><span class="pill ${r.delivered<=r.promised?"ok":"no"}">${r.delivered<=r.promised?"A tiempo":"Retraso"}</span></td><td>${r.incidents}</td></tr>`).join("")||'<tr><td colspan="9">No hay registros para los filtros seleccionados.</td></tr>';
- $("tableNote").textContent=rows.length>15?`Se muestran 15 de ${rows.length} registros filtrados.`:"";
+function renderProfile(){
+ const c=customers[active],risk=c.risk>=70?"ALTO":c.risk>=35?"MEDIO":"BAJO";
+ $("customerName").textContent=c.name;$("customerMeta").textContent=`${c.id} · ${c.sector} · ${c.city}`;$("customerSince").textContent=`Cliente desde ${c.since}`;
+ $("score").textContent=c.risk;$("scoreRing").style.background=`conic-gradient(${c.risk>=70?"#c83d4b":c.risk>=35?"#d69a20":"#16865b"} ${c.risk}%,#edf1f5 0)`;
+ $("riskLabel").textContent=`RIESGO ${risk}`;$("riskLabel").className="risk-label "+(risk==="ALTO"?"high-text":risk==="MEDIO"?"medium-text":"low-text");
+ $("sales").textContent=money(c.sales);$("salesTrend").textContent=`${c.trend>0?"↑":"↓"} ${Math.abs(c.trend)}% vs. periodo anterior`;
+ $("lastOrder").textContent=`${c.last} días`;$("frequency").textContent=`Cada ${c.freq} días`;$("incidents").textContent=c.incidents;
+ $("signals").innerHTML=c.signals.map(s=>`<div class="signal"><div class="signal-icon">${s[0]}</div><div><strong>${s[1]}</strong><p>${s[2]}</p></div></div>`).join("");
+ $("recommendations").innerHTML=c.recs.map((r,i)=>`<div class="rec"><div class="num">${i+1}</div><div><strong>${i===0?"Prioridad inmediata":i===1?"Acción de seguimiento":"Prevención y monitoreo"}</strong><p>${r}</p></div></div>`).join("");
 }
-function drawSales(rows){
- const c=$("salesChart"),ctx=c.getContext("2d"),w=c.clientWidth,h=235,dpr=window.devicePixelRatio||1;
- c.width=w*dpr;c.height=h*dpr;ctx.scale(dpr,dpr);ctx.clearRect(0,0,w,h);
- const months=[...new Set(rows.map(r=>r.date.slice(0,7)))].sort();const vals=months.map(m=>rows.filter(r=>r.date.startsWith(m)).reduce((s,r)=>s+r.qty*r.price,0));
- const max=Math.max(1,...vals),left=43,right=10,top=12,bottom=35,chartH=h-top-bottom,chartW=w-left-right;
- ctx.font="10px Arial";ctx.strokeStyle="#e8edf3";ctx.fillStyle="#8290a0";ctx.lineWidth=1;
- for(let i=0;i<=4;i++){let y=top+chartH*i/4;ctx.beginPath();ctx.moveTo(left,y);ctx.lineTo(w-right,y);ctx.stroke();ctx.fillText((max*(1-i/4)/1000).toFixed(0)+"k",3,y+3);}
- const step=chartW/Math.max(1,months.length),bw=Math.min(34,step*.55);
- vals.forEach((v,i)=>{let bh=v/max*(chartH-5),x=left+i*step+(step-bw)/2,y=top+chartH-bh;ctx.fillStyle="#0877b9";ctx.beginPath();ctx.roundRect(x,y,bw,bh,4);ctx.fill();ctx.fillStyle="#718096";ctx.textAlign="center";ctx.fillText(monthName(months[i]||"2026-01"),x+bw/2,h-12);});
- if(!months.length){ctx.fillStyle="#718096";ctx.textAlign="center";ctx.fillText("Sin datos para graficar",w/2,h/2);}
+function answer(q){
+ const c=customers[active],s=q.toLowerCase();
+ if(s.includes("por qué")||s.includes("riesgo")||s.includes("señal"))return `El cliente ${c.name} presenta un riesgo ${c.risk>=70?"ALTO":c.risk>=35?"MEDIO":"BAJO"} (${c.risk}/100) en este escenario.\n\nLas señales principales son: ${c.signals.map(x=>x[1].toLowerCase()).join("; ")}.\n\nLa puntuación es orientativa. Antes de tomar una decisión comercial, conviene validar las señales con el historial real y el contexto del cliente.`;
+ if(s.includes("primero")||s.includes("hacer")||s.includes("acción")||s.includes("recom"))return `Mi primera recomendación es: ${c.recs[0]}\n\nDespués: ${c.recs[1]}\n\nRegistra el contacto, el motivo identificado, el responsable y la fecha de seguimiento para medir si la intervención funcionó.`;
+ if(s.includes("gerente")||s.includes("resume")||s.includes("resumen"))return `RESUMEN EJECUTIVO | ${c.name}\nNivel de riesgo: ${c.risk>=70?"ALTO":c.risk>=35?"MEDIO":"BAJO"} (${c.risk}/100).\nVentas últimos 90 días: ${money(c.sales)} (${c.trend>0?"+":""}${c.trend}% vs. periodo anterior).\nÚltimo pedido: hace ${c.last} días. Incidencias abiertas: ${c.incidents}.\n\nPrioridad: ${c.recs[0]}\n\nNota: diagnóstico demostrativo con datos simulados, no representa una evaluación oficial de MISUMI.`;
+ return `Con la información disponible, puedo analizar el comportamiento de ${c.name}: ventas ${c.trend>0?"al alza":"a la baja"} (${Math.abs(c.trend)}%), última compra hace ${c.last} días e incidencias abiertas: ${c.incidents}.\n\nPara responder con mayor precisión, revisaría el historial de pedidos, los motivos de incidencias y el contacto más reciente con el cliente. ¿Quieres que profundice en el nivel de riesgo o en las acciones comerciales?`;
 }
-function drawCategories(rows){
- const counts=categories.map(c=>({name:c,n:rows.filter(r=>r.category===c).length})).filter(x=>x.n).sort((a,b)=>b.n-a.n),max=Math.max(1,...counts.map(x=>x.n));
- $("categoryBars").innerHTML=counts.map(x=>`<div class="bar-row"><span>${escapeHtml(x.name)}</span><div class="track"><div class="fill" style="width:${x.n/max*100}%"></div></div><b>${x.n}</b></div>`).join("")||'<p class="notice">Sin datos disponibles.</p>';
-}
-function drawInsights(rows,onTime,low,incidents){
- const risk=rows.length===0?"Sin datos":(onTime<85||low.length>=5||incidents>=8?"ALTO":onTime<95||low.length>0||incidents>0?"ATENCIÓN":"ESTABLE");
- $("riskStatus").textContent=risk;$("riskStatus").className="pill "+(risk==="ALTO"?"no":risk==="ATENCIÓN"?"mid":"ok");
- $("riskText").textContent=risk==="ALTO"?"Hay señales que ameritan priorización. Revisar pedidos retrasados, existencias críticas y causas de calidad.":risk==="ATENCIÓN"?"Conviene dar seguimiento a los indicadores fuera del nivel esperado y validar causas con el área responsable.":risk==="ESTABLE"?"Los indicadores del conjunto filtrado no muestran alertas bajo las reglas demostrativas.":"Selecciona otro filtro o carga registros.";
- $("inventoryAlert").textContent=low.length?`${low.length} productos distintos tienen stock menor a 20 unidades. Siguiente paso: contrastar demanda, plazo de reposición y stock de seguridad antes de priorizar compras.`:"No se detectan productos por debajo del umbral demostrativo de 20 unidades.";
- const avg=rows.length?rows.reduce((s,r)=>s+r.satisfaction,0)/rows.length:0;
- $("qualityInsight").textContent=`${incidents} incidencias registradas. Satisfacción promedio: ${rows.length?avg.toFixed(1)+"%":"sin datos"}. Analizar incidencias por producto, lote y periodo para buscar causas recurrentes.`;
-}
-function parseCSV(text){
- const lines=text.replace(/^\uFEFF/,"").split(/\r?\n/).filter(x=>x.trim());if(lines.length<2)throw Error("El CSV no contiene filas de datos.");
- const parseLine=line=>{let a=[],v="",q=false;for(let i=0;i<line.length;i++){let ch=line[i];if(ch==='"'&&line[i+1]==='"'&&q){v+='"';i++;}else if(ch==='"')q=!q;else if(ch===","&&!q){a.push(v.trim());v="";}else v+=ch;}a.push(v.trim());return a;};
- const headers=parseLine(lines[0]).map(x=>x.toLowerCase());
- const required=["date","order","category","product","qty","price","stock","promised","delivered","incidents","satisfaction"];
- const missing=required.filter(k=>!headers.includes(k));if(missing.length)throw Error("Faltan columnas: "+missing.join(", "));
- return lines.slice(1).map((line,i)=>{const vals=parseLine(line),o={};headers.forEach((h,j)=>o[h]=vals[j]??"");
-  const r={date:o.date,order:o.order,category:o.category,product:o.product,qty:Number(o.qty),price:Number(o.price),stock:Number(o.stock),promised:o.promised,delivered:o.delivered,incidents:Number(o.incidents),satisfaction:Number(o.satisfaction)};
-  if(!r.date||!r.order||!r.category||!r.product||![r.qty,r.price,r.stock,r.incidents,r.satisfaction].every(Number.isFinite)||r.qty<0||r.price<0||r.stock<0||r.incidents<0||r.satisfaction<0||r.satisfaction>100||!Number.isFinite(Date.parse(r.date))||!Number.isFinite(Date.parse(r.promised))||!Number.isFinite(Date.parse(r.delivered)))throw Error("Datos inválidos en la fila "+(i+2));
-  return r;
- });
-}
-["monthFilter","categoryFilter"].forEach(id=>$(id).addEventListener("change",applyFilters));$("search").addEventListener("input",applyFilters);
-$("resetBtn").addEventListener("click",()=>{$("monthFilter").value="all";$("categoryFilter").value="all";$("search").value="";applyFilters();});
-$("csvFile").addEventListener("change",async e=>{const f=e.target.files[0];if(!f)return;try{const parsed=parseCSV(await f.text());allData=parsed;populateFilters();$("monthFilter").value="all";$("categoryFilter").value="all";$("search").value="";applyFilters();alert(`Se cargaron ${parsed.length} registros correctamente.`);}catch(err){alert("No se pudo cargar el archivo: "+err.message);}e.target.value="";});
-$("exportBtn").addEventListener("click",()=>{const cols=["date","order","category","product","qty","price","stock","promised","delivered","incidents","satisfaction"];const quote=v=>'"'+String(v).replace(/"/g,'""')+'"';const csv=[cols.join(","),...filtered.map(r=>cols.map(k=>quote(r[k])).join(","))].join("\r\n");const a=document.createElement("a");a.href=URL.createObjectURL(new Blob(["\uFEFF"+csv],{type:"text/csv;charset=utf-8"}));a.download="misumi_datos_filtrados.csv";a.click();URL.revokeObjectURL(a.href);});
-window.addEventListener("resize",()=>drawSales(filtered));
-populateFilters();applyFilters();
+function addMessage(text,who){const d=document.createElement("div");d.className="msg "+who;d.textContent=text;$("chatLog").appendChild(d);$("chatLog").scrollTop=$("chatLog").scrollHeight;}
+function ask(q){if(!q.trim())return;addMessage(q,"user");setTimeout(()=>addMessage(answer(q),"ai"),180);}
+$("searchCustomer").addEventListener("input",renderList);
+$("chatForm").addEventListener("submit",e=>{e.preventDefault();ask($("chatInput").value);$("chatInput").value="";});
+document.querySelectorAll(".prompt").forEach(b=>b.addEventListener("click",()=>ask(b.dataset.q)));
+$("randomBtn").addEventListener("click",()=>{active=(active+1)%customers.length;selectCustomer(customers[active].id);});
+renderList();renderProfile();
 </script>
 </body>
 </html>'''
-path = Path("/mnt/data/MISUMI_Data_Intelligence_Demo.html")
+
+path = Path("/mnt/data/Customer_Health_AI_MISUMI_Demo.html")
 path.write_text(html, encoding="utf-8")
 print(f"Archivo creado: {path} ({path.stat().st_size:,} bytes)")
